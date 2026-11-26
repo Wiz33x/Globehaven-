@@ -1,0 +1,30 @@
+<!DOCTYPE html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>GLOBEHAVEN · Administration</title>
+<style>:root{--bg:#faf8f3;--sf:#fff;--tx:#1b2438;--mu:#5d6679;--bd:#e3dfd4;--ac:#c9760c;--acx:#fff}@media(prefers-color-scheme:dark){:root{--bg:#12182a;--sf:#1b2438;--tx:#f1efe8;--mu:#9aa3b8;--bd:#2c3752;--ac:#f0a53a;--acx:#12182a;color-scheme:dark}}
+*{box-sizing:border-box}body{margin:0;padding:16px;background:var(--bg);color:var(--tx);font:16px/1.5 system-ui,sans-serif}main{max-width:900px;margin:auto}
+input,button{font:inherit;padding:9px 12px;border-radius:10px;border:1px solid var(--bd);background:var(--sf);color:var(--tx)}input{width:100%}button{cursor:pointer;font-weight:600}button.p{background:var(--ac);color:var(--acx);border-color:var(--ac)}
+.c{background:var(--sf);border:1px solid var(--bd);border-radius:14px;padding:12px 14px;margin-top:10px}.mu{color:var(--mu);font-size:.9rem}.r{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}.err{color:#d6453d;min-height:1.3em}[hidden]{display:none!important}</style></head>
+<body><main><h1>GLOBEHAVEN · Administration</h1>
+<section id="login" hidden><label>E-mail<input id="e" type="email" autocomplete="email"></label><label>Mot de passe<input id="p" type="password" autocomplete="current-password"></label><div class="err" id="err"></div><div class="r"><button class="p" id="go">Se connecter</button></div></section>
+<section id="panel" hidden><div class="r"><button id="out">Déconnexion</button></div><p class="mu" id="st"></p><h2>Annonces</h2><div id="ls"></div><h2>Réservations</h2><div id="bs"></div><h2>Comptes</h2><div id="us"></div></section></main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script><script src="config.js"></script><script>const $=id=>document.getElementById(id);const esc=t=>String(t).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));</script>
+<script>
+const sb=supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
+const show=x=>{$("login").hidden=x!=="login";$("panel").hidden=x!=="panel"};
+async function gate(){const{data:{session}}=await sb.auth.getSession();if(!session)return show("login");
+const{data}=await sb.from("profiles").select("is_admin").eq("id",session.user.id).maybeSingle();
+if(!data||!data.is_admin){await sb.auth.signOut();$("err").textContent="Ce compte n’a pas accès à l’administration.";return show("login")}
+show("panel");load()}
+async function load(){const[l,b,u]=await Promise.all([sb.from("listings").select("*").order("created_at",{ascending:false}),sb.from("bookings").select("*,listings(name)").order("created_at",{ascending:false}),sb.from("profiles").select("*").order("created_at",{ascending:false})]);
+const A=l.data||[],B=b.data||[],U=u.data||[];
+$("st").textContent=U.length+" compte(s) · "+A.length+" annonce(s) · "+B.length+" réservation(s)";
+$("ls").innerHTML=A.map(x=>`<div class="c"><strong>${esc(x.name)}</strong> ${x.verified?"✔ Vérifiée":""}<div class="mu">${esc(x.city)}, ${esc(x.country)} · ${x.price} €/nuit · WhatsApp ${esc(x.whatsapp)}</div><div class="r"><button data-v="${x.id}" data-s="${x.verified}">${x.verified?"Retirer le badge":"Vérifier"}</button><button data-d="${x.id}">Supprimer</button></div></div>`).join("")||'<p class="mu">Aucune annonce.</p>';
+$("bs").innerHTML=B.map(x=>`<div class="c"><strong>${esc(x.listings?x.listings.name:"Annonce supprimée")}</strong><div class="mu">${x.start_date} → ${x.end_date} · ${x.total} € · ${esc(x.status)}</div><div class="r"><button data-b="${x.id}">Supprimer</button></div></div>`).join("")||'<p class="mu">Aucune réservation.</p>';
+$("us").innerHTML=U.map(x=>`<div class="c">${esc(x.email||"")} ${x.is_admin?"· admin":""}</div>`).join("")}
+$("panel").onclick=async e=>{const v=e.target.closest("[data-v]"),d=e.target.closest("[data-d]"),b=e.target.closest("[data-b]");
+if(v)await sb.from("listings").update({verified:v.dataset.s!=="true"}).eq("id",v.dataset.v);
+else if(d&&confirm("Supprimer cette annonce ?"))await sb.from("listings").delete().eq("id",d.dataset.d);
+else if(b&&confirm("Supprimer cette réservation ?"))await sb.from("bookings").delete().eq("id",b.dataset.b);else return;load()};
+$("go").onclick=async()=>{const r=await sb.auth.signInWithPassword({email:$("e").value.trim(),password:$("p").value});if(r.error)return $("err").textContent="E-mail ou mot de passe incorrect.";$("err").textContent="";gate()};
+$("out").onclick=async()=>{await sb.auth.signOut();show("login")};
+gate();
+</script></body></html>

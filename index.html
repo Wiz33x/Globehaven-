@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>GLOBEHAVEN</title>
+<meta name="description" content="Résidences à louer partout en Afrique.">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#faf8f3;--sf:#fff;--tx:#1b2438;--mu:#5d6679;--ac:#c9760c;--acx:#fff;--ok:#1f7a4d;--bd:#e3dfd4;--hd:#1b2438;--hdt:#faf8f3;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12182a;--sf:#1b2438;--tx:#f1efe8;--mu:#9aa3b8;--ac:#f0a53a;--acx:#12182a;--ok:#5fd29b;--bd:#2c3752;--hd:#0c1120;--hdt:#f1efe8;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#12182a;--sf:#1b2438;--tx:#f1efe8;--mu:#9aa3b8;--ac:#f0a53a;--acx:#12182a;--ok:#5fd29b;--bd:#2c3752;--hd:#0c1120;--hdt:#f1efe8;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.5 "Bricolage Grotesque",system-ui,sans-serif}
+header{background:var(--hd);color:var(--hdt);padding:14px 16px}
+.top{max-width:1000px;margin:auto;display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
+h1{font-size:1.4rem;font-weight:800;margin:0;letter-spacing:.06em;display:flex;align-items:center;gap:10px}
+nav{display:flex;flex-wrap:wrap;gap:8px}
+button,.btn{font:inherit;font-weight:600;border-radius:10px;border:1px solid var(--bd);background:var(--sf);color:var(--tx);padding:9px 14px;cursor:pointer;text-decoration:none;display:inline-block}
+button.p,.btn.p{background:var(--ac);color:var(--acx);border-color:var(--ac)}
+header button{background:transparent;color:var(--hdt);border-color:#ffffff40}
+header button.p{background:var(--ac);color:var(--acx)}
+:focus-visible{outline:3px solid var(--ac);outline-offset:2px}
+main{max-width:1000px;margin:auto;padding:16px}
+.filters{display:grid;grid-template-columns:1fr 1fr;gap:0 14px;margin-bottom:14px;background:var(--sf);border:1px solid var(--bd);border-radius:24px;padding:4px 16px 16px;box-shadow:0 4px 16px #0000001a}
+input,select{font:inherit;width:100%;padding:10px 12px;border-radius:10px;border:1px solid var(--bd);background:var(--sf);color:var(--tx)}
+label{display:block;font-size:.85rem;color:var(--mu);margin:10px 0 4px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:28px}
+.tabs{display:flex;gap:24px;overflow-x:auto;border-bottom:1px solid var(--bd);margin-bottom:22px}.tabs button{border:0;border-bottom:3px solid transparent;border-radius:0;background:none;color:var(--mu);padding:8px 2px;white-space:nowrap;display:flex;flex-direction:column;align-items:center;gap:2px}.tabs button span{font-size:1.7rem}.tabs button.on{color:var(--tx);border-bottom-color:var(--tx)}
+.heart{position:absolute;top:12px;right:12px;width:40px;height:40px;padding:0;border-radius:50%;border:0;background:#0006;color:#fff;font-size:1.2rem}.heart.on{color:#ff385c}
+.card{display:flex;flex-direction:column}
+.ph{aspect-ratio:1/1;border-radius:20px;background-size:cover;background-position:center;position:relative}
+.badge{position:absolute;top:10px;left:10px;font-size:.8rem;font-weight:600;padding:3px 9px;border-radius:99px;background:var(--ok);color:#fff}
+.badge.n{background:#0009}
+.cb{padding:10px 2px 0;display:flex;flex-direction:column;gap:2px;flex:1}
+.cb h3{margin:0;font-size:1.05rem}
+.mu{color:var(--mu);font-size:.9rem}
+.pr{font-weight:800;font-size:1.1rem}
+.acts{display:flex;gap:8px;margin-top:auto;padding-top:8px}
+.acts>*{flex:1;text-align:center}
+dialog{border:1px solid var(--bd);border-radius:16px;background:var(--sf);color:var(--tx);width:min(460px,94vw);padding:18px;max-height:90vh}
+dialog::backdrop{background:#0009}
+dialog h2{margin:0 0 6px;font-size:1.25rem}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.err{color:#d6453d;font-size:.9rem;min-height:1.2em;margin-top:8px}
+.bk{border:1px solid var(--bd);border-radius:12px;padding:10px 12px;margin-top:10px}
+.empty{text-align:center;color:var(--mu);padding:40px 10px;grid-column:1/-1}
+.sw{position:relative}.sl{position:absolute;left:0;right:0;top:100%;z-index:30;max-height:260px;overflow:auto;background:var(--sf);border:1px solid var(--bd);border-radius:12px;box-shadow:0 8px 24px #0004;margin-top:4px}.sl[hidden]{display:none}.sl button{display:block;width:100%;text-align:left;border:0;border-bottom:1px solid var(--bd);border-radius:0;background:none;padding:11px 12px;font-weight:400}
+</style>
+</head>
+<body>
+<header><div class="top"><h1><svg width="36" height="36" viewBox="0 0 40 40" role="img" aria-label="Logo GLOBEHAVEN"><circle cx="20" cy="20" r="17" fill="none" stroke="currentColor" stroke-width="2.5"/><ellipse cx="20" cy="20" rx="7" ry="17" fill="none" stroke="currentColor" stroke-width="1.6" opacity=".6"/><path d="M3 20h34" stroke="currentColor" stroke-width="1.6" opacity=".6"/><path d="M9 23 20 11l11 12v8H9z" fill="var(--ac)"/><rect x="17" y="24" width="6" height="7" fill="var(--hd)"/></svg>GLOBEHAVEN</h1>
+<nav><button id="bBk">Mes réservations</button><button id="bAuth">Connexion</button><button class="p" id="bPub">Publier ma résidence</button></nav></div></header>
+<main>
+<div class="filters">
+<div><label for="fC">Pays</label><select id="fC"><option value="">Toute l’Afrique</option></select></div>
+<div><label for="fV">Ville ou quartier</label><div class="sw"><input id="fV" autocomplete="off" placeholder="Choisissez d’abord un pays"><datalist id="dlF"></datalist><div class="sl" hidden></div></div></div>
+<div><label for="fP">Prix max / nuit (€)</label><input id="fP" type="number" min="0" placeholder="Illimité"></div>
+<div><label for="fK">Vérification</label><select id="fK"><option value="">Toutes</option><option value="1">Vérifiées</option></select></div>
+</div>
+<div class="tabs" id="tabs"><button class="on" data-t=""><span>🌍</span>Tous</button><button data-t="v"><span>🏡</span>Villas</button><button data-t="s"><span>🛏️</span>Studios</button><button data-t="m"><span>🏖️</span>Bord de mer</button><button data-t="l"><span>📅</span>Longue durée</button></div>
+<div class="grid" id="grid"></div>
+</main>
+
+<dialog id="dA"><h2>Connexion</h2>
+<label for="aE">E-mail</label><input id="aE" type="email" autocomplete="email">
+<label for="aP">Mot de passe (6 caractères minimum)</label><input id="aP" type="password" autocomplete="current-password">
+<div class="err" id="aR"></div>
+<div class="row"><button class="p" id="aIn">Se connecter</button><button id="aUp">Créer un compte</button><button data-x>Fermer</button></div></dialog>
+
+<dialog id="dB"><h2>Mes réservations</h2><div id="bL"></div><div class="row"><button data-x>Fermer</button></div></dialog>
+
+<dialog id="dR"><h2 id="rT">Réserver</h2><div class="mu" id="rS"></div>
+<label for="rA">Arrivée</label><input id="rA" type="date"><label for="rD">Départ</label><input id="rD" type="date">
+<div class="pr" id="rTot" style="margin-top:10px"></div><div class="err" id="rR"></div>
+<div class="row"><button class="p" id="rOk">Confirmer la réservation</button><button data-x>Annuler</button></div></dialog>
+
+<dialog id="dP"><h2>Publier ma résidence</h2>
+<label for="pN">Nom de l’annonce</label><input id="pN">
+<label for="pC">Pays</label><select id="pC"></select>
+<label for="pV">Ville / quartier</label><div class="sw"><input id="pV" autocomplete="off"><datalist id="dlP"></datalist><div class="sl" hidden></div></div>
+<label for="pP">Prix par nuit (€)</label><input id="pP" type="number" min="1">
+<label for="pT">Type</label><select id="pT"><option>Appartement</option><option>Villa</option><option>Studio</option><option>Chambre</option><option>Maison</option></select>
+<label for="pW">Numéro WhatsApp (avec indicatif)</label><input id="pW" type="tel" placeholder="221770000000">
+<label><input type="checkbox" id="pSea" style="width:auto"> Bord de mer</label><label><input type="checkbox" id="pLong" style="width:auto"> Longue durée</label>
+<label for="pF">Photos (jusqu’à 5, 5 Mo max chacune)</label><input id="pF" type="file" accept="image/*" multiple>
+<p class="mu">Le badge « Vérifié » est donné après une visite ou une vidéo de votre logement.</p>
+<div class="err" id="pR"></div>
+<div class="row"><button class="p" id="pOk">Publier</button><button data-x>Annuler</button></div></dialog>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script src="config.js"></script>
+<script>
+const $=id=>document.getElementById(id);
+const esc=t=>String(t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const PAYS=["Afrique du Sud","Algérie","Angola","Bénin","Botswana","Burkina Faso","Burundi","Cameroun","Cap-Vert","Centrafrique","Comores","Congo","Côte d’Ivoire","Djibouti","Égypte","Érythrée","Eswatini","Éthiopie","Gabon","Gambie","Ghana","Guinée","Guinée-Bissau","Guinée équatoriale","Kenya","Lesotho","Liberia","Libye","Madagascar","Malawi","Mali","Maroc","Maurice","Mauritanie","Mozambique","Namibie","Niger","Nigeria","Ouganda","RD Congo","Rwanda","Sao Tomé-et-Principe","Sénégal","Seychelles","Sierra Leone","Somalie","Soudan","Soudan du Sud","Tanzanie","Tchad","Togo","Tunisie","Zambie","Zimbabwe"].sort((a,b)=>a.localeCompare(b,"fr"));
+const VILLES=Object.fromEntries("Afrique du Sud:Johannesburg,Le Cap,Durban,Pretoria,Port Elizabeth,Stellenbosch,Bloemfontein,Knysna|Algérie:Alger,Oran,Constantine,Annaba,Tlemcen,Béjaïa,Ghardaïa|Angola:Luanda,Benguela,Lubango|Bénin:Cotonou,Porto-Novo,Ouidah,Parakou,Abomey-Calavi,Grand-Popo|Botswana:Gaborone,Francistown,Maun|Burkina Faso:Ouagadougou,Bobo-Dioulasso|Burundi:Bujumbura,Gitega|Cameroun:Douala,Yaoundé,Kribi,Limbé,Bafoussam,Garoua,Bamenda|Cap-Vert:Praia,Mindelo,Sal|Centrafrique:Bangui|Comores:Moroni|Congo:Brazzaville,Pointe-Noire|Côte d’Ivoire:Abidjan,Grand-Bassam,Yamoussoukro,Assinie,San-Pédro,Bouaké,Korhogo,Man|Djibouti:Djibouti|Égypte:Le Caire,Alexandrie,Charm el-Cheikh,Hurghada,Louxor,Assouan,Dahab,Marsa Alam|Érythrée:Asmara|Eswatini:Mbabane,Manzini|Éthiopie:Addis-Abeba,Bahir Dar,Lalibela,Gondar,Hawassa|Gabon:Libreville,Port-Gentil|Gambie:Banjul,Serrekunda|Ghana:Accra,Kumasi,Cape Coast,Takoradi,Tamale,Tema|Guinée:Conakry|Guinée-Bissau:Bissau|Guinée équatoriale:Malabo|Kenya:Nairobi,Mombasa,Diani,Kisumu,Nakuru,Malindi,Naivasha|Lesotho:Maseru|Liberia:Monrovia|Libye:Tripoli|Madagascar:Antananarivo,Nosy Be,Toamasina,Fianarantsoa,Sainte-Marie|Malawi:Lilongwe,Blantyre|Mali:Bamako,Tombouctou,Mopti,Ségou|Maroc:Casablanca,Marrakech,Rabat,Tanger,Agadir,Fès,Essaouira,Meknès,Ouarzazate,Chefchaouen,Oujda|Maurice:Port-Louis,Grand Baie|Mauritanie:Nouakchott|Mozambique:Maputo,Tofo,Beira,Vilankulo,Pemba|Namibie:Windhoek,Swakopmund,Walvis Bay,Lüderitz|Niger:Niamey|Nigeria:Lagos,Abuja,Port Harcourt,Kano,Ibadan,Enugu,Calabar|Ouganda:Kampala,Entebbe,Jinja,Fort Portal|RD Congo:Kinshasa,Lubumbashi,Goma,Kisangani,Matadi,Bukavu|Rwanda:Kigali,Gisenyi|Sao Tomé-et-Principe:São Tomé|Sénégal:Dakar,Saly,Saint-Louis,Somone,Thiès,Mbour,Ziguinchor,Touba,Kaolack,Cap Skirring|Seychelles:Victoria,Mahé|Sierra Leone:Freetown|Somalie:Mogadiscio|Soudan:Khartoum|Soudan du Sud:Juba|Tanzanie:Dar es Salam,Zanzibar,Arusha,Dodoma,Mwanza,Moshi|Tchad:N’Djamena|Togo:Lomé,Kara,Aného,Sokodé|Tunisie:Tunis,Hammamet,Sousse,Djerba,Sfax,Monastir,Tozeur|Zambie:Lusaka,Livingstone|Zimbabwe:Harare,Bulawayo".split("|").map(x=>{const[a,b]=x.split(":");return[a,b.split(",")]}));
+const QUART=Object.fromEntries("Abidjan:Cocody,Plateau,Marcory,Yopougon,Treichville,Riviera,Angré,Koumassi,Bingerville,Port-Bouët,Abobo,Adjamé|Dakar:Plateau,Almadies,Mermoz,Ngor,Ouakam,Point E,Sacré-Cœur,Yoff,Médina,Liberté|Saly:Saly Portudal,Saly Niakh Niakhal|Grand-Bassam:Quartier France,Mockey Ville|Casablanca:Maârif,Anfa,Ain Diab,Gauthier,Bourgogne,Racine,Oasis|Marrakech:Guéliz,Médina,Hivernage,Palmeraie,Agdal|Rabat:Agdal,Hassan,Souissi,Hay Riad|Tanger:Marshan,Malabata,Médina|Agadir:Founty,Talborjt,Marina|Alger:Hydra,Bab El Oued,El Biar,Kouba|Tunis:La Marsa,Carthage,Sidi Bou Saïd,Lac 1,Lac 2,Menzah|Hammamet:Yasmine Hammamet,Nabeul|Le Caire:Zamalek,Maadi,Héliopolis,Nasr City,Gizeh,Mohandessin|Lagos:Victoria Island,Lekki,Ikoyi,Ikeja,Yaba,Surulere|Abuja:Maitama,Wuse,Asokoro,Garki|Accra:Osu,Cantonments,East Legon,Airport Residential,Labone|Kumasi:Adum,Ahodwo|Nairobi:Westlands,Kilimani,Karen,Lavington,Kileleshwa|Mombasa:Nyali,Bamburi,Likoni|Kigali:Kiyovu,Nyarutarama,Kacyiru,Remera,Gisozi|Kampala:Kololo,Ntinda,Muyenga,Bugolobi|Dar es Salam:Masaki,Oyster Bay,Mikocheni,Kinondoni|Zanzibar:Stone Town,Nungwi,Paje,Kendwa|Addis-Abeba:Bole,Kazanchis,Piassa|Cotonou:Fidjrossè,Haie Vive,Akpakpa,Cadjehoun,Ganhi|Lomé:Tokoin,Adidogomé,Kodjoviakopé,Bè|Douala:Bonanjo,Akwa,Bonapriso,Bonamoussadi|Yaoundé:Bastos,Mvan,Essos,Biyem-Assi|Libreville:Louis,Batterie IV,Glass,Akanda|Kinshasa:Gombe,Ngaliema,Limete,Bandalungwa|Brazzaville:Poto-Poto,Bacongo,Moungali|Bamako:ACI 2000,Hippodrome,Badalabougou,Kalaban Coura|Ouagadougou:Ouaga 2000,Koulouba,Zogona,Gounghin|Conakry:Kaloum,Kipé,Nongo,Ratoma|Antananarivo:Analakely,Ivandry,Ambatobe|Johannesburg:Sandton,Rosebank,Melville,Soweto|Le Cap:Sea Point,Camps Bay,Waterfront,Gardens|Durban:Umhlanga,Ballito,Morningside|Maputo:Polana,Sommerschield,Costa do Sol|Luanda:Talatona,Ilha,Miramar|Lusaka:Kabulonga,Woodlands|Harare:Borrowdale,Avondale|Windhoek:Klein Windhoek,Eros|Bobo-Dioulasso:Dafra,Accart-Ville,Sarfalao,Colma|Niamey:Plateau,Gaweye,Koira Kano|Nouakchott:Tevragh Zeina,Ksar|Bissau:Bairro Militar,Bandim|Freetown:Aberdeen,Hill Station|Monrovia:Sinkor,Congo Town|Serrekunda:Kololi,Bakau,Fajara,Senegambia|Grand Baie:Pereybère,Trou aux Biches|Praia:Plateau,Achada Santo António|Mindelo:Fontainhas,Monte Sossego|Sal:Santa Maria,Espargos|Djibouti:Héron,Haramous|Port-Gentil:Océan,Cap Lopez|Pointe-Noire:Tié-Tié,Mpita|Bujumbura:Rohero,Kiriri|Lubumbashi:Golf,Bel Air|Goma:Himbi,Ndosho|Entebbe:Kitoro,Abayita Ababiri|Arusha:Njiro,Sakina|Lilongwe:Area 43,Area 10|Blantyre:Sunnyside,Limbe|Gaborone:Phakalane,Block 8|Maun:Thamalakane,Boseja|Maseru:Maseru West,Ha Abia|Mbabane:Sidwashini,Fonteyn|Tripoli:Ben Achour,Janzour|Khartoum:Khartoum 2,Burri|Juba:Tongping,Gudele|Mogadiscio:Hamar Weyne,Hodan|Asmara:Harnet,Gejeret|Kisumu:Milimani,Nyalenda|Fès:Ville Nouvelle,Médina,Agdal|Essaouira:Médina,Ghazoua|Alexandrie:Montaza,Stanley,Smouha|Hurghada:Sahl Hasheesh,El Gouna|Charm el-Cheikh:Naama Bay,Hadaba|Port Harcourt:GRA,Rumuola|Ibadan:Bodija,Jericho".split("|").map(x=>{const[a,b]=x.split(":");return[a,b.split(",")]}));
+const fill=(c,dl,inp)=>{dl.innerHTML=(VILLES[c]||[]).flatMap(v=>[v,...(QUART[v]||[]).map(q=>v+", "+q)]).map(x=>`<option value="${x}">`).join("");inp.value="";inp.placeholder=c?"Tapez ou choisissez":"Choisissez d’abord un pays"};
+const nz=t=>t.normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase();
+function combo(inp,dl){const box=inp.parentNode.querySelector(".sl");
+const show=()=>{const q=nz(inp.value.trim()),o=[...dl.options].map(x=>x.value).filter(v=>!q||nz(v).includes(q));
+box.innerHTML=o.map(v=>`<button type="button" data-v="${v}">${v}</button>`).join("");box.hidden=!o.length};
+inp.addEventListener("focus",show);inp.addEventListener("input",show);
+box.addEventListener("mousedown",e=>e.preventDefault());
+box.addEventListener("click",e=>{const b=e.target.closest("[data-v]");if(!b)return;inp.value=b.dataset.v;inp.dispatchEvent(new Event("input",{bubbles:true}));box.hidden=true});
+inp.addEventListener("blur",()=>setTimeout(()=>{box.hidden=true},150))}
+</script>
+<script>
+const sb=supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
+const fav=(()=>{try{return JSON.parse(localStorage.getItem("gh_fav"))||[]}catch(e){return[]}})();
+let me=null,L=[],tab="",cur=null;
+const T={v:l=>l.type==="Villa",s:l=>l.type==="Studio",m:l=>l.sea,l:l=>l.long_stay};
+async function load(){const{data,error}=await sb.from("listings").select("*").order("created_at",{ascending:false});
+if(error){$("grid").innerHTML='<div class="empty">Chargement impossible. Vérifiez config.js et le schéma SQL.</div>';return}L=data;render()}
+function render(){
+const c=$("fC").value,v=$("fV").value.trim().toLowerCase(),p=parseFloat($("fP").value),k=$("fK").value;
+const R=L.filter(l=>(!c||l.country===c)&&(!v||l.city.toLowerCase().includes(v))&&(!p||l.price<=p)&&(!k||l.verified)&&(!tab||T[tab](l)));
+$("grid").innerHTML=R.length?R.map(l=>{
+const bg=l.photos&&l.photos[0]?`url(${esc(l.photos[0])})`:"linear-gradient(135deg,#4f5d95,#c3cbf0)";
+const wa="https://wa.me/"+String(l.whatsapp).replace(/\D/g,"")+"?text="+encodeURIComponent("Bonjour, je suis intéressé(e) par « "+l.name+" ».");
+return`<article class="card"><div class="ph" style="background-image:${bg}" role="img" aria-label="${esc(l.name)}"><span class="badge ${l.verified?"":"n"}">${l.verified?"Vérifié":"Non vérifié"}</span><button class="heart ${fav.includes(l.id)?"on":""}" data-h="${l.id}" aria-label="Ajouter aux favoris">♥</button></div>
+<div class="cb"><h3>${esc(l.name)}</h3><div class="mu">${esc(l.city)}, ${esc(l.country)} · ${esc(l.type)}</div><div class="pr">${l.price} € <span class="mu" style="font-weight:400">/ nuit</span></div>
+<div class="acts"><button class="p" data-r="${l.id}">Réserver</button><a class="btn" href="${wa}" target="_blank" rel="noopener">WhatsApp</a></div></div></article>`}).join(""):'<div class="empty">'+(L.length?"Aucune résidence ne correspond. Élargissez vos filtres.":"Aucune annonce pour le moment. Soyez le premier à publier la vôtre.")+'</div>'}
+const setAuth=u=>{me=u;$("bAuth").textContent=me?"Déconnexion":"Connexion"};
+sb.auth.onAuthStateChange((_e,s)=>setAuth(s?s.user:null));
+["fC","fV","fP","fK"].forEach(i=>$(i).addEventListener("input",render));
+document.querySelectorAll("[data-x]").forEach(b=>b.onclick=()=>b.closest("dialog").close());
+$("tabs").onclick=e=>{const b=e.target.closest("[data-t]");if(!b)return;tab=b.dataset.t;document.querySelectorAll("#tabs button").forEach(x=>x.classList.toggle("on",x===b));render()};
+$("bAuth").onclick=async()=>{if(me){await sb.auth.signOut();return}$("aR").textContent="";$("dA").showModal()};
+async function doAuth(up){const email=$("aE").value.trim(),password=$("aP").value;
+if(!/^\S+@\S+\.\S+$/.test(email))return $("aR").textContent="Saisissez une adresse e-mail valide.";
+if(password.length<6)return $("aR").textContent="Le mot de passe doit contenir au moins 6 caractères.";
+const r=up?await sb.auth.signUp({email,password}):await sb.auth.signInWithPassword({email,password});
+if(r.error)return $("aR").textContent=/Invalid login/i.test(r.error.message)?"E-mail ou mot de passe incorrect.":/already/i.test(r.error.message)?"Un compte existe déjà avec cet e-mail. Connectez-vous.":r.error.message;
+if(up&&!r.data.session)return $("aR").textContent="Compte créé. Confirmez votre e-mail, puis connectez-vous.";
+$("aP").value="";$("dA").close()}
+$("aIn").onclick=()=>doAuth(false);$("aUp").onclick=()=>doAuth(true);
+const needLogin=()=>{$("aR").textContent="Connectez-vous pour continuer.";$("dA").showModal()};
+$("grid").onclick=e=>{const h=e.target.closest("[data-h]");
+if(h){const i=fav.indexOf(h.dataset.h);i<0?fav.push(h.dataset.h):fav.splice(i,1);try{localStorage.setItem("gh_fav",JSON.stringify(fav))}catch(x){}render();return}
+const b=e.target.closest("[data-r]");if(!b)return;if(!me)return needLogin();
+cur=L.find(l=>l.id===b.dataset.r);$("rT").textContent=cur.name;$("rS").textContent=cur.city+", "+cur.country+" · "+cur.price+" € / nuit";
+const t=new Date().toISOString().slice(0,10);$("rA").min=$("rD").min=t;$("rA").value=$("rD").value="";$("rTot").textContent="";$("rR").textContent="";$("dR").showModal()};
+const nights=()=>Math.round((new Date($("rD").value)-new Date($("rA").value))/864e5);
+["rA","rD"].forEach(i=>$(i).addEventListener("input",()=>{const n=nights();$("rTot").textContent=n>0?n+" nuit"+(n>1?"s":"")+" · total "+n*cur.price+" €":""}));
+$("rOk").onclick=async()=>{const n=nights();if(!$("rA").value||!$("rD").value||!(n>0))return $("rR").textContent="Choisissez une date de départ postérieure à l’arrivée.";
+$("rOk").disabled=true;
+const r=await sb.from("bookings").insert({listing_id:cur.id,start_date:$("rA").value,end_date:$("rD").value,total:n*cur.price}).select("id").single();
+if(r.error){$("rOk").disabled=false;return $("rR").textContent="Réservation impossible : "+r.error.message}
+$("rR").textContent="Un instant…";await pay(r.data.id);$("rOk").disabled=false;$("dR").close();showBk()};
+async function pay(id){try{const{data:{session}}=await sb.auth.getSession();
+const x=await fetch("/api/pay",{method:"POST",headers:{"Content-Type":"application/json",Authorization:"Bearer "+session.access_token},body:JSON.stringify({booking_id:id})});
+const j=await x.json();if(j.url){location.href=j.url;await new Promise(()=>{})}if(j.error)alert(j.error)}
+catch(e){alert("Service de paiement indisponible. Votre réservation reste en attente.")}}
+const ST={pending:"En attente de paiement",paid:"Payée",confirmed:"Confirmée"};
+async function showBk(){if(!me)return needLogin();
+const{data,error}=await sb.from("bookings").select("*,listings(name,city,country)").eq("user_id",me.id).order("created_at",{ascending:false});
+const f=d=>new Date(d).toLocaleDateString("fr-FR");
+$("bL").innerHTML=error?'<p class="err">Chargement impossible.</p>':data.length?data.map(b=>`<div class="bk"><strong>${esc(b.listings?b.listings.name:"Annonce supprimée")}</strong><div class="mu">${b.listings?esc(b.listings.city)+", "+esc(b.listings.country):""}</div><div>Du ${f(b.start_date)} au ${f(b.end_date)} · ${b.total} €</div><div class="mu">${ST[b.status]||b.status}</div><div class="row">${b.status==="pending"?`<button class="p" data-p="${b.id}">Payer</button>`:""}${b.status==="paid"?"":`<button data-c="${b.id}">Annuler</button>`}</div></div>`).join(""):'<p class="mu">Aucune réservation pour le moment.</p>';
+if(!$("dB").open)$("dB").showModal()}
+$("bBk").onclick=showBk;
+$("bL").onclick=async e=>{const p=e.target.closest("[data-p]");if(p){await pay(p.dataset.p);return showBk()}
+const b=e.target.closest("[data-c]");if(!b)return;await sb.from("bookings").delete().eq("id",b.dataset.c);showBk()};
+$("bPub").onclick=()=>{if(!me)return needLogin();$("pR").textContent="";$("dP").showModal()};
+const shrink=f=>new Promise((ok,ko)=>{const r=new FileReader();r.onerror=ko;r.onload=()=>{const i=new Image();i.onerror=ko;i.onload=()=>{const s=Math.min(1,1200/i.width),c=document.createElement("canvas");c.width=i.width*s;c.height=i.height*s;c.getContext("2d").drawImage(i,0,0,c.width,c.height);c.toBlob(b=>b?ok(b):ko(),"image/jpeg",.8)};i.src=r.result};r.readAsDataURL(f)});
+$("pOk").onclick=async()=>{
+const name=$("pN").value.trim(),country=$("pC").value,city=$("pV").value.trim(),price=parseFloat($("pP").value),w=$("pW").value.replace(/\D/g,""),fs=[...$("pF").files];
+if(!name||!country||!city||!(price>0))return $("pR").textContent="Renseignez le nom, le pays, la ville et le prix par nuit.";
+if(w.length<8)return $("pR").textContent="Saisissez un numéro WhatsApp avec l’indicatif du pays.";
+if(fs.length>5)return $("pR").textContent="5 photos maximum.";
+if(fs.some(f=>f.size>5*1048576))return $("pR").textContent="Chaque photo doit faire 5 Mo maximum.";
+$("pOk").disabled=true;$("pR").textContent="Publication en cours…";
+try{const photos=[];for(const[i,f]of fs.entries()){const path=`${me.id}/${Date.now()}-${i}.jpg`,u=await sb.storage.from("photos").upload(path,await shrink(f),{contentType:"image/jpeg"});if(u.error)throw u.error;photos.push(sb.storage.from("photos").getPublicUrl(path).data.publicUrl)}
+const r=await sb.from("listings").insert({name,country,city,price,type:$("pT").value,whatsapp:w,sea:$("pSea").checked,long_stay:$("pLong").checked,photos});if(r.error)throw r.error;
+$("dP").close();["pN","pC","pV","pP","pW","pF"].forEach(i=>$(i).value="");$("pSea").checked=$("pLong").checked=false;await load()}
+catch(e){$("pR").textContent="Publication impossible : "+e.message}finally{$("pOk").disabled=false}};
+$("fC").innerHTML='<option value="">Toute l’Afrique</option>'+PAYS.map(c=>`<option>${c}</option>`).join("");
+$("pC").innerHTML='<option value="">Choisir un pays</option>'+PAYS.map(c=>`<option>${c}</option>`).join("");
+$("fC").addEventListener("change",()=>{fill($("fC").value,$("dlF"),$("fV"));render()});
+$("pC").addEventListener("change",()=>fill($("pC").value,$("dlP"),$("pV")));
+combo($("fV"),$("dlF"));combo($("pV"),$("dlP"));fill("",$("dlF"),$("fV"));fill("",$("dlP"),$("pV"));
+load();
+if(/tx_ref=/.test(location.search)){history.replaceState(null,"",location.pathname);sb.auth.getSession().then(({data})=>{if(data.session){me=data.session.user;showBk()}})}
+</script>
+</body>
+</html>
